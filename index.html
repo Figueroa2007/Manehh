@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+    <!-- End Google Analytics -->
+
+</head>
+<body>
+    <header>
+        <h1>Expense Tracker</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Add Transaction</h2>
+            <form id="transaction-form">
+                <label for="description">Description:</label>
+                <input type="text" id="description" required>
+                
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" step="0.01" required>
+                
+                <label for="transaction-type">Type:</label>
+                <select id="transaction-type" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+                
+                <label for="category">Category:</label>
+                <input type="text" id="category" required>
+                
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+                
+                <label for="recurring">Recurring:</label>
+                <select id="recurring">
+                    <option value="">None</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+                
+                <label for="tags">Tags (comma separated):</label>
+                <input type="text" id="tags">
+                
+                <label for="note">Note:</label>
+                <textarea id="note"></textarea>
+                
+                <button type="button" onclick="addTransaction()">Add Transaction</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Filters</h2>
+            <label for="filter">Type:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+            
+            <label for="category-filter">Category:</label>
+            <input type="text" id="category-filter">
+            
+            <label for="tag-filter">Tags:</label>
+            <input type="text" id="tag-filter">
+            
+            <label for="search">Search:</label>
+            <input type="text" id="search">
+            
+            <button type="button" onclick="filterTransactions()">Apply Filters</button>
+        </section>
+
+        <section>
+            <h2>Transaction List</h2>
+            <ul id="transaction-list"></ul>
+        </section>
+
+        <section>
+            <h2>Charts</h2>
+            <div class="charts-container">
+                <div class="chart">
+                    <canvas id="incomeVsExpenseChart"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="categoryPieChart"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="expenseTrendChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Balance</h2>
+            <p id="balance">0.00</p>
+        </section>
+
+        <!-- Updated Insights Section -->
+        <section>
+            <h2>Insights</h2>
+            <div id="insights"></div>
+        </section>
+
+        <section>
+            <h2>Reports</h2>
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date">
+            
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+            
+            <button type="button" onclick="generateReport()">Generate Report</button>
+            <div id="report-output"></div>
+            <button id="export-data">Export Data as CSV</button>
+            <button id="generate-pdf">Generate PDF Report</button>
+        </section>
+
+        <section>
+            <h2>Budget Goals</h2>
+            <label for="budget-category">Category:</label>
+            <input type="text" id="budget-category">
+            
+            <label for="budget-amount">Amount:</label>
+            <input type="number" id="budget-amount" step="0.01">
+            
+            <button type="button" onclick="setBudgetGoal()">Set Budget Goal</button>
+        </section>
+
+        <!-- Budget Goals List Section -->
+        <section>
+            <h2>Budget Goals List</h2>
+            <ul id="budget-goal-list"></ul>
+        </section>
+
+        <section>
+            <h2>Alerts</h2>
+            <ul id="alert-list"></ul>
+        </section>
+
+        <section>
+            <button id="toggle-visibility">Show Transaction Details</button>
+            <div id="transaction-details" style="display: none;">
+                <!-- Transaction details content here -->
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
